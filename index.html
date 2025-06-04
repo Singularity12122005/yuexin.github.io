@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuexin Liao - Academic Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2c5282;
+            --accent-color: #3182ce;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --background: #ffffff;
+            --background-alt: #f7fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--background);
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white; padding: 4rem 0; position: relative; overflow: hidden;
+        }
+        .header-content { text-align: center; position: relative; z-index: 1; }
+        .profile-image {
+            width: 180px; height: 180px; border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            margin: 0 auto 2rem; display: block; object-fit: cover;
+            box-shadow: var(--shadow-lg);
+        }
+        h1 { font-size: 3rem; font-weight: 300; margin-bottom: 0.5rem; }
+        .title { font-size: 1.2rem; font-style: italic; margin-bottom: 1rem; }
+        .university { font-size: 1.1rem; opacity: 0.8; }
+        nav {
+            background: var(--background);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-container { display: flex; justify-content: center; padding: 1rem 0; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-primary);
+            font-weight: 500; padding: 0.5rem 1rem; border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+            background: var(--background-alt); color: var(--accent-color);
+        }
+        main { padding: 4rem 0; }
+        section { margin-bottom: 4rem; }
+        h2 {
+            font-size: 2rem; color: var(--primary-color);
+            margin-bottom: 2rem; position: relative; padding-bottom: 0.5rem;
+        }
+        h2::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 60px; height: 3px; background: var(--accent-color);
+        }
+        .about-content {
+            font-size: 1.1rem; text-align: justify; background: var(--background-alt);
+            padding: 2.5rem; border-radius: 12px;
+            border-left: 4px solid var(--accent-color); box-shadow: var(--shadow);
+        }
+        .about-content p { margin-bottom: 1.5rem; }
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        .footer-note { font-style: italic; opacity: 0.9; }
+        .copyright { opacity: 0.7; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="header-content">
+            <img src="6920b966fe78c9a0f7d9c10fe61c9d59.jpg" alt="Yuexin Liao" class="profile-image">
+            <h1>Yuexin Liao</h1>
+            <div class="title">廖悦辛</div>
+            <div class="university">Junior Undergraduate Student, California Institute of Technology</div>
+        </div>
+    </div>
+</header>
+<nav>
+    <div class="container">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<main>
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>I am passionate about creating new theories at the intersection of mathematics, computer science, and economics. My research concentrates on partial differential equations, dynamical systems, machine learning, and decision theory.</p>
+                <p>At the core of my work is a rigorous exploration and formulation of distribution laws—whether manifesting as intricate statistical patterns in data science, or analytical structures and abstract probabilistic frameworks within pure mathematics.</p>
+                <p>I perceive programming as a formal linguistic framework, language itself as a hierarchy of structural abstractions, and mathematics as the foundational syntax describing universal regularities. This integrated and generative perspective fuels my enthusiasm for theoretical elegance, structural unification, and deep explanatory power.</p>
+                <p>I am deeply committed to continually constructing and refining high-level theoretical frameworks and applying them rigorously to address meaningful real-world problems. I always welcome the opportunity to meet new people and discuss compelling ideas.</p>
+            </div>
+        </section>
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <div class="footer-note">Papers and notes available upon request. WeChat: prooftrivial.</div>
+        <div class="copyright">© 2025 Yuexin Liao. All rights reserved.</div>
+    </div>
+</footer>
+</body>
+</html>
