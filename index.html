@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuexin Liao - Academic Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2c5282;
+            --accent-color: #3182ce;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --background: #ffffff;
+            --background-alt: #f7fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--background);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 220px;
+            height: auto;
+            border-radius: 12px;
+            margin: 0 auto 2rem;
+            display: block;
+            object-fit: contain;
+            box-shadow: var(--shadow-lg);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .university {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--background);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: var(--background-alt);
+            color: var(--accent-color);
+        }
+
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 80px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        /* About Section */
+        .about-content {
+            font-size: 1.1rem;
+            text-align: justify;
+            background: var(--background-alt);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: var(--shadow);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Publications Section */
+        .publications {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .publication-category {
+            background: var(--background);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .publication-list {
+            padding: 1.5rem;
+        }
+
+        .publication-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .publication-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .publication-authors {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: var(--background-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-note {
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .about-content {
+                padding: 1.5rem;
+            }
+
+            .profile-image {
+                width: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="bc7b60dd-8908-495f-be53-484be18ef54d.jpg" alt="Yuexin Liao" class="profile-image">
+                <h1>Yuexin Liao</h1>
+                <div class="title">廖悦辛</div>
+                <div class="university">Junior Undergraduate Student, California Institute of Technology</div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="about">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <p>I am passionate about creating new theories at the intersection of <em>mathematics</em>, <em>computer science</em>, and <em>economics</em>. My research concentrates on partial differential equations, dynamical systems, machine learning, and decision theory.</p>
+                    <p>At the core of my work is a rigorous exploration and formulation of <em>distribution laws</em>—whether manifesting as intricate statistical patterns in data science, or analytical structures and abstract probabilistic frameworks within pure mathematics.</p>
+                    <p>I perceive programming as a formal linguistic framework, language itself as a hierarchy of structural abstractions, and mathematics as the foundational syntax describing universal regularities. This integrated and generative perspective fuels my enthusiasm for theoretical elegance, structural unification, and deep explanatory power.</p>
+                    <p>I am deeply committed to continually constructing and refining high-level theoretical frameworks and applying them rigorously to address meaningful real-world problems. I always welcome the opportunity to meet new people and discuss compelling ideas.</p>
+                </div>
+            </section>
+
+            <section id="publications">
+                <h2>Publications & Research</h2>
+                <div class="publications">
+                    <div class="publication-category">
+                        <div class="category-header"><i class="fas fa-star"></i> Selected Papers</div>
+                        <div class="publication-list">
+                            <div class="publication-item">
+                                <div class="publication-title">Random Utility with Aggregated Alternatives</div>
+                                <div class="publication-authors">Y. Liao, K. Saito, A. Sandroni</div>
+                            </div>
+                            <div class="publication-item">
+                                <div class="publication-title">On Schrödinger System with Variable Exponent</div>
+                                <div class="publication-authors">Y. Liao, C. Liu, X. Yang</div>
+                            </div>
+                            <div class="publication-item">
+                                <div class="publication-title">Ergodic Optimization for Amphidynamical Systems</div>
+                                <div class="publication-authors">O. Jenkinson, X. Li, Y. Liao, Y. Zhang</div>
+                            </div>
+                            <div class="publication-item">
+                                <div class="publication-title">Typical Uniqueness in Ergodic Optimization</div>
+                                <div class="publication-authors">O. Jenkinson, X. Li, Y. Liao, Y. Zhang</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="publication-category">
+                        <div class="category-header"><i class="fas fa-chart-line"></i> Applied Research</div>
+                        <div class="publication-list">
+                            <div class="publication-item">
+                                <div class="publication-title">Data-Driven Price Trends Prediction of Ethereum</div>
+                                <div class="publication-authors">Y. Liao, E. Mill</div>
+                            </div>
+                            <div class="publication-item">
+                                <div class="publication-title">Optimal Allocation for Stock Market-Excluded Retirees</div>
+                                <div class="publication-authors">E. Mill, S. Anyomi, Y. Liao</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="publication-category">
+                        <div class="category-header"><i class="fas fa-cog"></i> Work in Progress</div>
+                        <div class="publication-list">
+                            <div class="publication-item">
+                                <div class="publication-title">Network Flow Approach to Analyze Decision Phenomena</div>
+                                <div class="publication-authors">Y. Liao</div>
+                            </div>
+                            <div class="publication-item">
+                                <div class="publication-title">Algebraic Structures and Convex Geometry in Rational Choice Modeling</div>
+                                <div class="publication-authors">Y. Liao</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h2>Contact Information</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-info">
+                            <h3>Email</h3>
+                            <a href="mailto:singularity_math@163.com">singularity_math@163.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fab fa-weixin"></i></div>
+                        <div class="contact-info">
+                            <h3>WeChat</h3>
+                            <span>singularity_math</span>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-book"></i></div>
+                        <div class="contact-info">
+                            <h3>Research Notes</h3>
+                            <span>WeChat: prooftrivial</span>
+                            <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">Advanced topics in optimal transport, computational rationalizability, integrable systems, category theory</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-note">Papers available upon request. Additional notes, sketches, and expository insights available on WeChat <strong>prooftrivial</strong>.</div>
+            <div class="copyright">© 2025 Yuexin Liao. All rights reserved.</div>
+        </div>
+    </footer>
+</body>
+</html>
