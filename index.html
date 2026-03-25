@@ -319,6 +319,42 @@
             letter-spacing: 0.5px;
         }
 
+        /* Moments / Gallery Section (Elegant Waterfall Layout) */
+        .gallery-grid {
+            column-count: 2;          /* 完美修复1：改用纯CSS多列布局 */
+            column-gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            break-inside: avoid;      /* 严禁图片被割裂到两列 */
+            margin-bottom: 3rem;      /* 增加上下间距 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery-img-wrapper {
+            width: 100%;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: auto;            /* 完美修复2：高度自适应，完美保留原图长宽比 */
+            display: block;
+            border-radius: 2px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* 增加极轻微的阴影提升质感 */
+        }
+
+        .gallery-caption {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            font-family: var(--font-sans);
+            color: var(--text-muted);
+            text-align: center;
+            line-height: 1.4;
+        }
+
         /* Contact Section */
         .contact-info {
             font-family: var(--font-sans);
@@ -409,6 +445,10 @@
             
             h1.section-title {
                 font-size: 2rem;
+            }
+
+            .gallery-grid {
+                column-count: 1;   /* 完美修复3：手机屏幕上恢复为单列 */
             }
         }
     </style>
@@ -616,7 +656,7 @@
                         <a href="https://drive.google.com/file/d/1WZGSPqXXTDmgqCqW0-DiZmolZxv5HQc7/view" target="_blank" class="note-pdf">[PDF]</a>
                     </div>
                 </div>
-           
+            
                 <div class="note-card">
                     <div class="note-header">
                         <a href="https://drive.google.com/file/d/1JnNw_DvcpJfInZ-Tr2ADi2BCEVqmm25f/view" target="_blank" class="note-title">Special Topics in Stochastic Calculus</a>
