@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Frontier Survey of AI for Science</title>
+    
+    <!-- Google Fonts for Academic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- KaTeX for Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" xintegrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71PT0KILfu" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" xintegrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfPe41jj1bHMo8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" xintegrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbOxyj0O18Tj1IGV1O4VWa8j" crossorigin="anonymous"></script>
+
+    <!-- Tailwind CSS with Typography Plugin -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    typography: {
+                        DEFAULT: {
+                            css: {
+                                color: '#334155', // slate-700
+                                h1: {
+                                    fontFamily: '"Inter", sans-serif',
+                                    color: '#0f172a', // slate-900
+                                    fontWeight: '800',
+                                    letterSpacing: '-0.025em',
+                                    lineHeight: '1.2',
+                                    marginBottom: '1rem',
+                                },
+                                h2: {
+                                    fontFamily: '"Inter", sans-serif',
+                                    color: '#1e293b', // slate-800
+                                    fontWeight: '700',
+                                    marginTop: '2.5em',
+                                    paddingBottom: '0.5em',
+                                    borderBottom: '1px solid #e2e8f0',
+                                    lineHeight: '1.4',
+                                },
+                                h3: {
+                                    fontFamily: '"Inter", sans-serif',
+                                    color: '#334155',
+                                    fontWeight: '600',
+                                    lineHeight: '1.5',
+                                    marginTop: '2em',
+                                },
+                                p: {
+                                    fontFamily: '"Merriweather", "Georgia", serif',
+                                    lineHeight: '1.8',
+                                    fontSize: '1.125rem',
+                                    marginTop: '1.25em',
+                                    marginBottom: '1.25em',
+                                },
+                                blockquote: {
+                                    fontFamily: '"Merriweather", "Georgia", serif',
+                                    fontStyle: 'italic',
+                                    fontWeight: '400',
+                                    borderLeftColor: '#3b82f6', // blue-500
+                                    borderLeftWidth: '4px',
+                                    color: '#1e293b',
+                                    backgroundColor: '#f8fafc', // slate-50
+                                    padding: '1.25rem 1.5rem',
+                                    marginTop: '2em',
+                                    marginBottom: '2em',
+                                    quotes: 'none',
+                                    borderRadius: '0 0.5rem 0.5rem 0',
+                                    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                                },
+                                'blockquote p:first-of-type::before': { content: 'none' },
+                                'blockquote p:last-of-type::after': { content: 'none' },
+                                ul: {
+                                    fontFamily: '"Merriweather", "Georgia", serif',
+                                    fontSize: '1.125rem',
+                                    lineHeight: '1.8',
+                                },
+                                ol: {
+                                    fontFamily: '"Merriweather", "Georgia", serif',
+                                    fontSize: '1.125rem',
+                                    lineHeight: '1.8',
+                                },
+                                li: {
+                                    marginTop: '0.5em',
+                                    marginBottom: '0.5em',
+                                },
+                                strong: {
+                                    color: '#0f172a',
+                                    fontWeight: '700',
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth, subtle background */
+        body {
+            background-color: #fafafa;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Formula block scrolling for smaller screens */
+        .katex-display {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body class="py-10 md:py-20 px-4 sm:px-6 lg:px-8">
+
+    <article class="prose prose-slate prose-lg lg:prose-xl mx-auto max-w-3xl">
+        
+        <h1>A Frontier Survey of AI for Science: When Science Is No Longer Merely Computed, but Begins to Be Organized, Learned, and Generated in Closed Loop</h1>
+
+        <h3>Introduction: The Question Raised by the Progress of AI4S That Truly Deserves Discussion and Deep Reflection Is Not Whether AI Can Be Used for Science, but In What Form Science Will Continue to Exist</h3>
+
+        <p>The expression “AI for Science” (abbreviated below as AI4S) sounds plain and direct: as the name suggests, it means applying AI to scientific research. Precisely because it sounds so natural, however, people easily underestimate the real complexity of thought contained within it. Most of the time, when people talk about AI4S, they are referring to a number of concrete directions: protein structure prediction, molecular generation, learning partial differential equations, automated experimental platforms, scientific literature agents, and so on. All of these directions are, of course, important, and to different degrees they improve human life. But if AI4S merely meant applying stronger models to a number of scientific tasks, then it would not deserve the level of excitement, controversy, and expectation it receives today.</p>
+
+        <p>What makes AI4S truly worthy of serious discussion is not whether it is a new high-potential application market, but whether it may be touching a more fundamental research paradigm: whether the organization of scientific discovery is gradually shifting from a mode characterized by the relative separation of theory, experiment, and simulation to a closed-loop mode characterized by the deep coupling of data, models, reasoning, experiments, and feedback.</p>
+
+        <p>If this is indeed the case, then the significance of AI4S is no longer that it provides scientists with better tools; rather, it begins to rewrite the relations among scientists, models, experimental apparatuses, databases, and industrial validation. In other words, its true object is not any single prediction task, but the very paradigm according to which science is made.</p>
+
+        <p>This is also why discussion of AI4S cannot stop at technology, nor can it stop at industry. It demands a multi-layered perspective: on the one hand, one must see the shift in philosophy of science and epistemology implicit within it; on the other hand, one must retain a clear awareness and understanding of methodological boundaries, systemic forms, and real infrastructural foundations. Understanding of real value does not arise from simply adding together the two high-energy words AI and Science. It arises from clarifying what exactly changes when the two meet, what ought not to be changed, which changes are merely superficial, and which may have deep and irreversible consequences.</p>
+
+        <p>The central thesis I would like to propose is this:</p>
+
+        <blockquote>
+            <p>The essence of AI for Science is not to attach learning systems onto the scientific process, but, without abandoning scientific rigor, to reorganize scientific research from a concatenation of discrete steps into a discovery mechanism that is learnable, feedback-driven, iterative, and self-correcting.</p>
+        </blockquote>
+
+        <p>If this statement is correct, then AI4S should not be understood as an ordinary technical direction, but as a new scientific architecture. What follows develops this core thesis.</p>
+
+        <h2>I. The Philosophical Layer: AI4S Matters Not Because It Makes Science Faster, but Because It Changes What Counts as “Knowledge,” “Object,” and “Scientific Tool”</h2>
+
+        <h3>1. The Difference Between AI4S and General LLM Products Built Primarily Through Engineering</h3>
+
+        <p>Roughly speaking, progress in scientific research in the traditional sense has been sustained by three types of capacities: observation and experiment, theoretical abstraction and deduction, and numerical simulation and computation. These three respectively address difficulties at different levels: experiment converts natural phenomena in the world into forms that humans can handle and analyze; theory compresses phenomena into structure; simulation builds a computable bridge between theory and reality. For a long time, these three together have constituted the most central institutional framework of modern science. What it means to do science is, in essence, the combination and arrangement of these three activities.</p>
+
+        <p>What makes the emergence of AI4S appear different is precisely that it does not simply belong to any one of them. It is neither a new experimental technique, nor traditional theory, nor merely a numerical accelerator for existing equations. What it introduces is a fourth capacity: on objects that are highly complex, high-dimensional, cross-modal, and often lacking complete explicit theoretical expression, it enables a learning system to actively form representations, extract structure, compress information, generate candidates, and organize search.</p>
+
+        <p>If the power of theory lies in explaining the commonality of many phenomena through first principles, then the power of AI4S lies in this: when explicit principles are not yet sufficient, and when the search space vastly exceeds human intuition, it allows us to use learning systems to establish effective structural operational capacity even before full understanding has been achieved.</p>
+
+        <p>This is precisely what makes AI4S both the hardest to accept and the most deserving of serious treatment. For it means that the production of scientific knowledge no longer depends entirely on first thinking through clear principles and only then deducing consequences; it begins to permit another route: first obtaining high-dimensional regularities, structural associations, representation compression, and candidate generation, and only afterwards gradually recovering stronger mechanistic understanding. It does not replace theory; rather, it changes the temporal order among theory, data, and operation.</p>
+
+        <p>Accordingly, the first layer of meaning of AI4S is that it brings science into a new epistemic state:</p>
+
+        <blockquote>
+            <p>Knowledge no longer appears only in the form of explicit laws and analytic expressions; it may also appear, in part, as a structural capacity stably mastered by a learning system, repeatedly callable, and corrigible through feedback.</p>
+        </blockquote>
+
+        <p>Once this point is admitted, the question of AI4S is no longer whether model performance is good or bad, but something sharper: in science, what form of effectiveness can be admitted as knowledge?</p>
+
+        <h3>2. What AI4S Rewrites Is Not Only How We Know, but Also What the Object of Knowing Is</h3>
+
+        <p>If AI4S is understood merely as a stronger predictor, then it still remains within the traditional ontology of scientific objects: the object is still that same object, and the model merely estimates it more accurately. But mature AI4S practice has in fact already begun to move beyond this. It increasingly ceases to understand the object as a static entity, and increasingly understands it as a node in a process, a state on a trajectory, an intermediate layer in an experimental loop, or a controllable variable in a design–validation system.</p>
+
+        <p>This is a shift at the level of ontology. The mathematical objects processed by AI4S are expanding from static function-approximation problems to dynamical-system identification problems, and further to optimal experimental design and closed-loop discovery problems under uncertainty. This is not an extension in scale of the same type of task; it is an upgrade in the category of the research object.</p>
+
+        <p>An example helps clarify this point. Many traditional scientific machine learning tasks can be abstracted as static supervised learning problems. Let \(X\) be the object space and \(Y\) the target space. The task is to learn, from samples</p>
+        
+        \[
+        \{(x_i,y_i)\}_{i=1}^n \sim P_{XY},
+        \]
+        
+        <p>a mapping \(f:X\to Y\) such that \(f(x)\) approximates some static property \(y\) of the object \(x\). For example, given a molecular graph, one predicts its band gap or stability; given a protein sequence, one predicts its three-dimensional structure. The common feature of such tasks is that the object is treated as a static input, the target as a static label, and the model faces, in some sense, a function-approximation problem.</p>
+
+        <p>But deeper AI for Science has already ceased to stop at learning such static mappings. It is increasingly confronted with trajectories, dynamics, and state evolution. In this case, the object is no longer a single \(x\), but a sequence of states \(x_0,x_1,\ldots,x_T\). What the model must learn is no longer merely \(x\mapsto y\), but some law of evolution, for example</p>
+        
+        \[
+        x_{t+1}=\Phi(x_t)
+        \qquad \text{or more generally} \qquad
+        x_{t+1}=F(x_t,u_t,\xi_t),
+        \]
+        
+        <p>where \(u_t\) denotes a control variable and \(\xi_t\) denotes a random perturbation. Here the learning object has already shifted from property prediction to process modeling: how a molecular configuration evolves over time, how a reaction system advances along a dynamical path. What the model approximates is no longer a static label function, but a dynamical operator, a transition kernel, or, in continuous time, a vector field and stochastic flow.</p>
+
+        <p>Going one step deeper, the part of AI4S that is truly structurally novel is not even merely learning the natural process itself, but entering closed-loop scientific discovery: design, synthesis, characterization, and feedback are no longer separate stages, but are unified as a sequential decision process under uncertainty. Let \(s_t\) denote the knowledge state at step \(t\) (it may contain the current dataset, surrogate model, candidate set, and experimental budget), let \(a_t\) denote the chosen experiment or design action, and let \(o_t\) denote the experimental observation. Then the whole process may be formalized as</p>
+        
+        \[
+        s_{t+1}=G(s_t,a_t,o_t), \qquad a_t=\pi(s_t),
+        \]
+        
+        <p>and the objective is, under a finite budget, to find an optimal policy \(\pi\) maximizing discovery efficiency, information gain, or final candidate quality:</p>
+        
+        \[
+        \max_{\pi}\,\mathbb{E}^{\pi}\!\left[\sum_{t=0}^{T-1} r(s_t,a_t,s_{t+1})\right].
+        \]
+
+        <p>Put more plainly, what is truly being learned and optimized is no longer merely the label of an object, but rather: how the system evolves; how candidates are screened; how experimental failure in turn corrects the model; and how scientific reasoning converges through multiple rounds of interaction.</p>
+
+        <p>The scientific object therefore ceases to be merely an external entity, and becomes instead a processual structure continually rewritten through observation, modeling, experimentation, and feedback. This means that AI4S is not simply making better approximations to old objects; it is elevating those previously implicit intermediate components in scientific research—trajectories, dynamics, strategies, information flow, decision order—into primary objects of study. Our objective becomes: within the closed loop of experiment, simulation, and feedback, to actively choose the next action so as to optimally advance scientific discovery itself.</p>
+
+        <p>This is a profoundly deep transformation. For once this is so, the role of AI in science shifts from approximator toward organizer. It no longer merely computes a value; it organizes the state space, candidate space, experiment space, and feedback space. The minimal unit of science thus shifts from a result to a loop.</p>
+
+        <h3>3. AI4S Rewrites the Boundary Between Tool and Subject</h3>
+
+        <p>Historically, scientific tools have almost always extended some human capacity: microscopes extend observation, computers extend computational power, numerical simulation extends the solvable boundary. But these tools have, on the whole, retained a kind of passivity: the human decides the problem, the tool executes the operation. However complex they become, tools still primarily extend human intention.</p>
+
+        <p>What distinguishes AI tools from this is not merely that they are stronger, but that for the first time they possess, to a considerable extent, the capacities for learning, representation, screening, proposing, interacting, and organizing a certain degree of reasoning. Their assistance to scientists therefore no longer consists merely in accelerating already given operations; rather, they begin to occupy certain higher-order positions: helping organize the literature, structure variables, generate candidates, detect patterns, construct hypotheses, and arrange the next experiment. In some local respects, they can browse enormous structured spaces far faster than humans can.</p>
+
+        <p>In this sense, AI4S introduces an unprecedented type of tool: it is neither purely an instrument nor purely software, but something closer to an interactive structural entity participating in the process of knowledge generation. This does not, of course, mean that it is already a scientist. But it does mean that some cognitive labor traditionally borne by the subject alone is beginning to be partially outsourced to a non-human system.</p>
+
+        <p>Accordingly, a long-stable structure within science begins to loosen: subject and tool are no longer sharply bifurcated. Scientists no longer merely use tools to observe the world; they also begin to use a system that can partly organize the world, compress the world, and suggest the world. The consequences of this change have not yet fully emerged, but it already forces us to rethink the following question:</p>
+
+        <blockquote>
+            <p>When effectiveness appears prior to transparency, by what means should we accept, question, constrain, and integrate such a system?</p>
+        </blockquote>
+
+        <h3>4. The Deep Attraction of AI4S Comes From Its Encounter With a Physics-Like Methodology</h3>
+
+        <p>Why is it that many people who think seriously about AI4S eventually keep returning to words such as physics, complex systems, statistical mechanics, emergence, constraints, and symmetry? Because the deepest prospect of AI4S is not stronger applications, but the reconstruction of a unified way of understanding a complex world.</p>
+
+        <p>Here, physics should not be understood narrowly as the discipline studying a certain class of objects. It should be understood as a methodological orientation: under noise, complexity, multiscale structure, local interactions, and surface-level disorder, one seeks low-dimensional structure, symmetry, conservation, effective degrees of freedom, and predictable regularities.</p>
+
+        <p>What is precious about this orientation is not that it always succeeds in writing elegant equations, but that it always maintains the conviction that the world, though complex, can be organized; that phenomena, though abundant, can be compressed.</p>
+
+        <p>The deepest attraction of AI4S lies precisely in the fact that it gives this methodological philosophy a new technical carrier and a new developmental possibility. Many complex systems in the past were not in principle devoid of regularity; rather, because there were too many variables, too much coupling, and too large a search space, humans found them difficult to organize directly. The representational capacity and structural search capacity of AI bring a portion of this complexity—previously graspable only locally—back into an operational range.</p>
+
+        <p>Accordingly, AI4S should not be seen as science being invaded by AI. It should instead be seen as science's long-standing effort to reorganize a complex world into intelligible objects acquiring a new mediating layer and a new research paradigm.</p>
+
+        <h2>II. The Methodological Layer: The Real Threshold of AI4S Is Not Model Complexity, but Problem Taste, Structural Awareness, and the Capacity to Integrate Constraints</h2>
+
+        <h3>1. Not Every Task Bearing Scientific Vocabulary Deserves the Name AI4S</h3>
+
+        <p>AI4S is easily over-consumed in part because it simultaneously carries two high-energy labels: AI and Science. Once these two words are placed together, the work immediately appears cutting-edge, grand, and full of futurity. But truly valuable research must first learn to subtract: not every scientific task requires AI; not every scientific problem involving data should be deep-learning-ized; and not every model-driven result automatically possesses scientific value.</p>
+
+        <p>If AI4S is to produce genuinely heterogeneous breakthroughs amid a mass of homogeneous work, it must first admit one thing: methodological choice is never neutral.</p>
+
+        <p>In many problems, traditional theory, numerical methods, optimization methods, statistical modeling, or even hand-constructed structured models may be more transparent, more stable, cheaper, and more mechanistically interpretable than large models or deep learning. From this point of view, if the core of a problem has already been captured by a relatively low-complexity structure, then forcibly imposing a more complex learning system on it does not automatically increase its scientific character.</p>
+
+        <p>Therefore, the true starting point of AI4S is not: I have a model, where can I find a scientific problem on which to try it? It is the reverse: does the essential difficulty of this problem truly arise from high-dimensional representation, complex search, coupling structures difficult to model explicitly, expensive simulation, scarce feedback, or a dynamic closed loop?</p>
+
+        <p>If not, then introducing AI will most likely merely add unnecessary opacity.</p>
+
+        <p>This step may appear conservative, but in fact it determines the vitality of the whole direction. Whether a field can survive over the long run depends not on how many trendy papers it produces, but on whether it possesses the capacity to reject pseudo-problems. If AI4S cannot develop this kind of self-restraint, it will eventually be struck at its weakest point by the criticism that it is merely taking a hammer in search of nails.</p>
+
+        <h3>2. Truly High-Level AI4S Is Not Method Transfer, but the Construction of an Isomorphism Between Method and Object</h3>
+
+        <p>Even when a problem is worth doing, the next step is still far from simply selecting the strongest model and applying it. Scientific objects are not abstract data points; they each possess highly nontrivial structures of their own: local interactions, group symmetries, conservation relations, reversibility, boundary conditions, multiscale coupling, mechanisms of experimental noise, sampling bias, and dependence on measurement procedures. If these structures are not expressed correctly, then even the strongest function-approximation capacity remains only superficial accuracy.</p>
+
+        <p>Thus, the true methodology of AI4S is not AI applied to science, but rather, more precisely:</p>
+        
+        \[
+        \text{scientific structure} \;\to\; \text{representation} \;\to\; \text{inductive bias} \;\to\; \text{learning mechanism}.
+        \]
+        
+        <p>That is to say, the core of the method lies not in the model's name, but in whether the following four matters have all been handled simultaneously:</p>
+
+        <ol>
+            <li>How should the object be represented: as a graph, lattice, trajectory, many-body system, field, operator, or experimental sequence? Which structures must be preserved a priori?</li>
+            <li>Which symmetries, locality properties, scale hierarchies, conservations, or invariants must not be left to the model to learn for itself? Which parts are suitable for data-driven treatment?</li>
+            <li>Which components are difficult to write down explicitly, but can be approximated from data? How does prediction enter the real closed loop?</li>
+            <li>Is the output a numerical value, a candidate, a policy, or an experimental instruction? How is it to be validated?</li>
+        </ol>
+
+        <p>This is why many truly valuable AI4S works do not look like migrating the latest model onto a new dataset. They look more like a rewriting at the level of representation theory and mechanism design. Their difficulty often lies not in network depth, but in whether they have found the correct computational form of the object.</p>
+
+        <p>Should a crystal be viewed as a graph? Should molecular discovery be treated as free sampling, or as constrained measure optimization on a feasible set? Should an experimental workflow be understood as an optimizable sequential decision process? These judgments are themselves part of methodological depth.</p>
+
+        <h3>3. In Science, a Good Model Is Not One With Small Error, but One That Is Structurally Clean and Coherent</h3>
+
+        <p>When model quality is discussed in machine learning in general, the most natural metrics are loss, accuracy, and generalization. Science of course also needs these quantities, but they are very far from sufficient. For in science, a model does not bear only the task of prediction; it also bears several additional responsibilities:</p>
+
+        <ul>
+            <li>it must retain physical consistency under distribution shift;</li>
+            <li>it should violate known mechanisms as little as possible;</li>
+            <li>when it fails, it should allow one to localize whether the failure comes from the data, the representation, or the physical prior;</li>
+            <li>in some situations, it must support extrapolation, rather than merely interpolation near similar samples;</li>
+            <li>most importantly, it must, together with experiment and theory, constitute a knowledge object that is corrigible and reviewable.</li>
+        </ul>
+
+        <p>Thus, the goodness of a scientific model cannot be understood merely as being statistically more accurate. It should instead be understood as follows:</p>
+
+        <blockquote>
+            <p>Is it structurally consistent, clean, and coherent?</p>
+        </blockquote>
+
+        <p>Here, consistency and coherence mean that the model does not lightly substitute statistical correlation for actual mechanism, does not casually step outside known constraints, and does not become completely non-diagnosable after feedback failure. In science, acceptable high performance must appear together with structural discipline.</p>
+
+        <p>This is also why physical priors are necessary in AI4S. Symmetry, locality, conservation, scale structure, realizability constraints, and so forth are not inserted into the model merely to make it look scientific. They are there to prevent the model, under finite data and massive degrees of freedom, from developing arbitrariness. Truly strong generalization often comes not from a larger parameter count, but from better structural restriction.</p>
+
+        <p>In other words, AI4S is not a construction that simply increases model freedom without bound. It is a process of seeking the finest possible balance between necessary degrees of freedom and necessary constraints.</p>
+
+        <h3>4. At the Depth of AI4S Methodology Stands a Question Harder Than Performance: What Counts as an Important Problem?</h3>
+
+        <p>Once the above steps are pushed to their end, one discovers that the greatest difficulty of AI4S is perhaps not technical at all, but one of research taste. For a researcher must repeatedly face a number of very fundamental questions:</p>
+
+        <ul>
+            <li>Am I working on a truly important problem, or merely on a problem into which a method can conveniently intervene?</li>
+            <li>Did I choose this object because it is scientifically central, or because it can easily produce a benchmark?</li>
+            <li>Am I forming a problem framework with lasting vitality, or merely chasing a short-lived methodological trend?</li>
+            <li>Is my model helping us understand the object, or merely turning the object into something publishable but useless?</li>
+        </ul>
+
+        <p>This is precisely where AI4S displays the greatest depth of skill, and where it most readily exposes weakness. It demands that the researcher be neither purely problem-blind nor purely method-blind.</p>
+
+        <p>If one knows only the problem and not the method, one falls into empty idealism. If one knows only the method and not the problem, one slides into beautiful but shallow technical transfer. What is truly difficult is to have both at once: to be able to recognize the problems genuinely worth investing in, and to know what form of method is genuinely suited to them.</p>
+
+        <p>Thus, high-quality AI4S is never fundamentally a question of whether one knows how to use AI. It is rather this:</p>
+
+        <blockquote>
+            <p>Do you have the ability, when faced with a complex scientific object, to identify its truly important and essential structure, reject easy but superficial points of entry, and construct a form of method that neither sacrifices scientific seriousness and precision nor refuses the power of learning systems, and that genuinely reflects depth of thought?</p>
+        </blockquote>
+
+        <h2>III. The Systems Layer: The Potential of AI4S Lies Not in a Collection of Models, but in the Formation of a Discovery Loop</h2>
+
+        <h3>1. The Real Leap Is Not From Small Models to Large Models, but From One-Shot Prediction to Closed-Loop Discovery</h3>
+
+        <p>At the early stage of development in many fields, attention easily concentrates on the model itself: larger networks, better losses, stronger architectures, more parameters. AI4S has certainly gone through this stage, and will continue to need strong models. But if one looks only at the model, one misses the most important structural leap of this direction:</p>
+
+        <blockquote>
+            <p>The core unit of AI4S is shifting from a predictor to a discovery loop.</p>
+        </blockquote>
+
+        <p>Many traditional scientific computing tasks are, in essence, one-time transformations from input to output; however complex they may be, their logical form remains linear. The mature form of AI4S is no longer like this. It begins to involve:</p>
+
+        <ul>
+            <li>candidate generation;</li>
+            <li>multi-stage screening;</li>
+            <li>simulation and approximate evaluation;</li>
+            <li>experimental execution;</li>
+            <li>failure analysis;</li>
+            <li>data return flow;</li>
+            <li>model retraining;</li>
+            <li>updating the strategy for the next round of exploration.</li>
+        </ul>
+
+        <p>Therefore, its natural form is no longer a function, but something more like a system:</p>
+        
+        \[
+        \mathcal{S}:(\text{data},\text{model},\text{experiment},\text{feedback})\longrightarrow \text{updated scientific state}.
+        \]
+
+        <p>At this level, the value of the model is no longer defined by one-shot predictive accuracy, but by how much effective exploratory capacity it contributes to the entire closed loop. Does it reduce blind trial? Does it make experimental feedback more informative? Can it extract from failed samples structural signals useful for the next round? Can it allow the system as a whole to approach genuinely valuable regions more quickly?</p>
+
+        <p>This is a redefinition, at the systems level, of what a good model means.</p>
+
+        <h3>2. In AI4S, the Hardest Part Has Never Been Training, but Receiving the Prediction</h3>
+
+        <p>There is a very common misunderstanding in external discussions of AI4S: people often suppose that the main difficulty lies in training a stronger model. Once the model exists, the remainder is supposedly just an engineering deployment problem. In scientific settings, however, the reality is almost the reverse. In many cases, generating candidates is not difficult. What is difficult is determining whether a candidate is meaningful, synthesizable, worth the experimental cost, and capable of bringing back information when it fails.</p>
+
+        <p>That is, the key issue in AI4S is not whether the model can output something, but whether the real system can effectively evaluate that output and correct it.</p>
+
+        <p>This is the most fundamental difference between prediction in science and generation in ordinary content domains: even if text generation has local hallucinations, the consequence may only be a degraded reading experience; but hallucinations in reactions or experimental strategies directly consume expensive experimental resources, and may even mislead the subsequent direction of research.</p>
+
+        <p>For this reason, every act of generation in AI4S must be embedded in a filtering mechanism: physical sanity checks, realizability constraints, approximate simulation-based screening, experimental cost trade-offs, risk control, and final empirical validation.</p>
+
+        <p>From this point of view, what is most precious in science is not generative capacity, but the capacity to continue learning after being punished by the real world. If a system cannot route physical validation and failed feedback back to the model side, then it will forever remain only a beautiful but hollow proposal engine.</p>
+
+        <h3>3. First Principles, High-Performance Computing (HPC), Surrogate Models, and Experiment Are Not Substitutes, but Layers in a Cooperative Hierarchy</h3>
+
+        <p>AI4S is often misunderstood as using AI to replace traditional scientific computing. This is a very shallow understanding. The real picture is much more like a multi-layer stack than a zero-sum substitution.</p>
+
+        <p>In many problems, first principles remain among the most trustworthy sources of knowledge. The problem is not that those principles fail, but that their computational cost is often far too high. Thus, the central tension in science is frequently not whether there are equations, but whether there exists, between the equations and large-scale operational objects, an effective connection that real hardware can bear.</p>
+
+        <p>This is precisely why surrogate models, machine-learned potentials, structured approximators, and fast screeners arise. They are not there to negate physics, but to compress expensive but high-accuracy local knowledge into a mediating layer deployable at larger scales.</p>
+
+        <p>Accordingly, a mature AI4S system usually exhibits the following hierarchy:</p>
+
+        <ul>
+            <li><strong>Bottom layer:</strong> first principles, theoretical models, numerical simulation, HPC;</li>
+            <li><strong>Middle layer:</strong> surrogate models, graph models, MLIP, fast evaluators, generation and screening modules;</li>
+            <li><strong>Upper layer:</strong> experimental design, robotic execution, characterization analysis, feedback archiving;</li>
+            <li><strong>Outer layer:</strong> databases, compute infrastructure, experimental cost structure, human judgment, and institutional arrangement.</li>
+        </ul>
+
+        <p>In this stack, no layer can be simply removed. First principles provide trustworthy theoretical guarantees; the surrogate layer provides scalability; the experimental layer provides final adjudication; the database and feedback layer ensure that the system accumulates rather than forgets. The prospect of AI4S comes from the connectivity of information among these layers.</p>
+
+        <h3>4. Why Data Become a Bottleneck: Because Scientific Data Are Not Content, but the World After Measurement</h3>
+
+        <p>When people talk about AI, they are accustomed to treating data as some kind of natural resource: as long as there is enough of it, it can be fed to the model. But data in science are fundamentally not ordinary content. They often possess the following features: collection is expensive and condition-sensitive; dimensionality is high but samples are scarce; labels are sometimes only indirect observations rather than actual ground truth; data from different laboratories may not be directly comparable; failed samples, marginal samples, and unpublished samples are often missing in large quantities.</p>
+
+        <p>This means that scientific data are not the world itself, but slices of the world after processing by a measurement procedure. Therefore, in AI4S, data quality is not merely a matter of cleaning. It is a matter of: what kind of observations we possess; what has been omitted; which biases come from the measurement tool; which biases come from human experimental habits; and which negative samples have never entered the database.</p>
+
+        <p>This also explains why many frontier studies place the bottleneck first on reliable data, and only then on reliable models. For if the data themselves have not entered a state that is comparable, reproducible, and capable of closed-loop return flow, then the stronger the model becomes, the more likely it is merely to amplify statistical contingency within the structure of the data more efficiently.</p>
+
+        <h3>5. When the Experimental System Becomes Automatable</h3>
+
+        <p>When the experimental system becomes a loop capable of self-adjustment around knowledge gain, it can realize:</p>
+
+        <ul>
+            <li>a model layer that generates candidates rather than merely executing instructions;</li>
+            <li>an information-theoretic strategy layer that decides the next round of experiments according to existing uncertainty;</li>
+            <li>a data layer that treats failure itself as a structural signal for correction;</li>
+            <li>a feedback layer capable of continuously revising representations and models;</li>
+            <li>an intermediate layer capable of cooperating with theoretical approximators and high-accuracy simulators.</li>
+        </ul>
+
+        <p>In this way, the system no longer merely repeats actions; it repeatedly corrects its own understanding of the world. The laboratory then ceases to be merely a place where experiments are performed. It becomes a knowledge-production system that learns.</p>
+
+        <h2>IV. The Industrial Layer: The Value of AI4S Lies Not in Local Efficiency Gains, but in Reshaping the Hardest, Slowest, and Most Expensive Parts of the Innovation Chain</h2>
+
+        <h3>1. The Watershed Between AI4S and Ordinary AI Applications Is That It May Create New Capabilities, Rather Than Merely Compress Old Workflows</h3>
+
+        <p>The logic behind the success of many AI applications is very clear: complete already existing work faster, more cheaply, and more automatically. Writing documents, doing customer service, searching for information, generating marketing content, assisting coding—the core value of these directions is often efficiency. They are of course important, and their scale is enormous. But for the most part they optimize already given demand functions.</p>
+
+        <p>AI4S differs in that it may not merely accelerate old tasks, but allow spaces that were previously impossible to explore systematically to enter, for the first time, the realm of operability. Reaction-path spaces, combinatorial design spaces, experimental parameter spaces—these spaces are usually too large to enumerate brute-force, and too large for human intuition to navigate. AI4S can convert such spaces from the non-traversable into something organizable, rankable, and guideable in exploration.</p>
+
+        <p>This is not a question of speed, but of the boundary of capability. In economic terms, the value of this change is not merely cost reduction, but possibility expansion.</p>
+
+        <p>What it creates is not the same thing done more cheaply, but the possibility that things previously impossible begin to become possible. This is also why AI4S may be scarcer, in the long run, than many workflow-oriented forms of AI: it acts not only on labor substitution, but on the innovation frontier itself.</p>
+
+        <h3>2. Once AI4S Is Truly Connected Through, It Will Push the Influence of AI From the Information World Into the Physical World</h3>
+
+        <p>Most AI systems that are conspicuously successful at present operate mainly in informational space: text, images, video, software, content distribution, search, recommendation, office work, and cognitive assistance. What distinguishes AI4S is that once its closed loop truly runs through, its impact will penetrate into the most foundational innovative links of the physical world: energy devices, process routes, experimental platforms, and even longer-cycle manufacturing chains.</p>
+
+        <p>This means that the spillover effect of AI4S is far greater than that of merely making some software more useful. What it may alter is the time scale from concept to preparation for new substances, the engineering feasibility of optimizing complex systems, and the iterative speed of certain foundational hard technologies.</p>
+
+        <h3>3. Competition in AI4S Will Not Be the Victory of a Single Model, but the Victory of Composite Infrastructure</h3>
+
+        <p>For precisely this reason, the industrial landscape of AI4S is fundamentally different from that of ordinary model-centric entrepreneurship. It is not the case that whoever first trains a larger network takes the whole market. What often truly determines outcomes is whether the following capacities exist simultaneously:</p>
+
+        <ul>
+            <li>sufficiently strong upstream compute, foundation models, and simulation capability;</li>
+            <li>sufficiently reliable databases and experimental recording systems;</li>
+            <li>automated interfaces that convert model outputs into executable experiments;</li>
+            <li>characterization and validation systems that are sufficiently fast and sufficiently standardized;</li>
+            <li>organizational mechanisms that precipitate failed feedback into reusable knowledge;</li>
+            <li>long-cycle institutional patience with high fault tolerance.</li>
+        </ul>
+
+        <p>In other words, the true competitive unit in AI4S is not a single model company, but a composite infrastructural system spanning software, experiments, hardware, databases, and research organization.</p>
+
+        <p>This is what makes AI4S naturally unsuited to a direction whose value can be demonstrated solely by short-term demos. It must truly connect to the frictions, costs, delays, and validation logics of the real world. Whoever can maintain consistency along this long chain is more likely to enter the next stage in a genuine way.</p>
+
+        <h3>4. Why AI4S Corresponds to High-Value-Added Innovation Rather Than Low-Barrier Scaled Deployment</h3>
+
+        <p>A practical characteristic of AI4S is that it usually does not lie in the easiest parts to scale, but rather in those links that are the hardest, slowest, and most uncertain, and yet also the highest in value added. What questions are worth asking; in what space one should explore; how to validate efficiently; which failures are worth preserving; and how to precipitate exploratory capacity into a platform—all of these belong to those parts of the innovation chain with the highest returns and the least susceptibility to commoditization.</p>
+
+        <p>This is also why the true attraction of AI4S does not lie in quickly forming a large-scale consumer product, but in its potential to reshape the R\&D system itself. What it touches is not marginal process optimization, but the way invention and discovery gradually move from personalized, experience-based, and low-throughput activities toward activities that are systematized, feedback-driven, and cumulatively optimizable.</p>
+
+        <p>Accordingly, the high value of AI4S does not come from a conceptual superposition of AI and science. It comes from the fact that it enters the hardest, slowest, and least systematically organized segment at the core of the innovation economy.</p>
+
+        <h2>Conclusion</h2>
+
+        <p>AI for Science matters not because it makes science more like AI, but because it may allow science, for the first time, to reorganize itself in a genuinely closed-loop, learnable, feedback-driven, iterative, and self-correcting way.</p>
+
+        <p>But the reason this is difficult is precisely that it requires four capacities to hold simultaneously—and these four capacities are almost never demanded together within the same system:</p>
+
+        <p><strong>First, clarity at the level of thought.</strong><br>
+        One must know what is changing and what must not change. AI may alter the paradigm of knowledge formation and exploration, but it must not cause science to lose corrigibility, verifiability, and structure.</p>
+
+        <p><strong>Second, precision at the methodological level.</strong><br>
+        One must be able to recognize genuinely important problems, understand the natural representation of the object, and finely couple priors, structure, and learning mechanisms, rather than producing flashy but insubstantial technical transfers.</p>
+
+        <p><strong>Third, a global sense at the systems level.</strong><br>
+        One must see that the model is not the endpoint, but only one segment in the system-view of a discovery loop. We must recognize that data, simulation, experiment, and feedback form a system, and cannot be understood from the perspective of isolated nodes.</p>
+
+        <p><strong>Fourth, long-term judgment at the industrial level.</strong><br>
+        We must understand that the value of AI4S does not lie in short-term hype, but in the possibility that it may reshape the core, slowest, and most expensive segment of innovation. This requires extremely deep patience, infrastructural awareness, and cross-boundary organizational capacity.</p>
+
+        <p>And it is precisely because of this that AI4S is neither merely technical, nor simply an industrial track. It is more like an experiment: an experiment in whether, without sacrificing scientific depth and rigor, we can truly move science from an activity dependent on individual intuition, fragmented processes, and slow feedback toward a form of knowledge production that is more systematic, higher-throughput, yet still structurally disciplined and coherent.</p>
+
+        <p>This undertaking may not proceed smoothly, and it certainly cannot be realized automatically through a few beautiful papers. It will go through phases filled with pseudo-problems, pseudo-demands, excessive packaging, and missing closed loops; it will repeatedly expose the hard boundaries imposed by real experiments, data quality, and physical constraints. But it is precisely because these boundaries are so hard that AI4S deserves to be treated seriously. For once it is truly accomplished, what it brings will not merely be the refresh of some model, but the beginning of scientific discovery itself acquiring a new institutional form.</p>
+
+        <p>At that point, what we will be discussing will no longer be whether AI can help science, but the harder and more fundamental questions:</p>
+
+        <blockquote>
+            <p>When science begins to be co-produced by learning systems, experimental platforms, and feedback loops, how should genuine understanding be defined, how should novel discovery be defined, and in what way will human researchers remain at the center of this process?</p>
+        </blockquote>
+
+    </article>
+
+    <!-- Initialize KaTeX Auto-Render -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "\\[", right: "\\]", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+</body>
+</html>
