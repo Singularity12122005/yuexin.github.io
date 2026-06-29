@@ -10,7 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,300..560&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- KaTeX: CSS and scripts must use exactly the same version. -->
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css"
   integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB"
@@ -54,12 +53,12 @@
   }
 
   *{box-sizing:border-box}
-  html{font-size:clamp(16px,0.6vw + 14.5px,18px); -webkit-text-size-adjust:100%}
+  html{font-size:clamp(15px, 0.5vw + 14px, 17.5px); -webkit-text-size-adjust:100%}
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:var(--serif); font-weight:380;
     font-variant-numeric:oldstyle-nums; font-optical-sizing:auto;
-    line-height:1.66; letter-spacing:.005em;
+    line-height:1.55; letter-spacing:.005em;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     transition:background .35s ease, color .35s ease;
   }
@@ -75,61 +74,61 @@
     position:fixed; top:1rem; right:1rem; z-index:60;
     font-family:var(--mono); font-size:.7rem; letter-spacing:.12em;
     color:var(--muted); background:var(--bg-2); border:1px solid var(--hair);
-    border-radius:999px; padding:.5em .9em; cursor:pointer; line-height:1;
-    display:inline-flex; align-items:center; gap:.55em;
+    border-radius:999px; padding:.45em .8em; cursor:pointer; line-height:1;
+    display:inline-flex; align-items:center; gap:.5em;
     transition:color .2s, border-color .2s, background .35s;
   }
   .toggle:hover{color:var(--accent); border-color:var(--accent)}
   .toggle .dot{
-    width:.62em; height:.62em; border-radius:50%;
+    width:.6em; height:.6em; border-radius:50%;
     border:1.4px solid currentColor; background:transparent;
-    box-shadow:inset -.28em -.05em 0 0 currentColor;
+    box-shadow:inset -.25em -.05em 0 0 currentColor;
   }
 
-  .wrap{max-width:39rem; margin:0 auto; padding:0 1.5rem 6rem}
+  .wrap{max-width:41rem; margin:0 auto; padding:0 1.5rem 4rem}
 
-  .hero{padding:clamp(3.2rem,11vh,7.5rem) 0 1.4rem}
+  .hero{padding:clamp(2.5rem, 8vh, 5rem) 0 1rem}
   .eyebrow{
-    font-family:var(--mono); font-size:.72rem; letter-spacing:.26em;
-    text-transform:uppercase; color:var(--accent-ink); margin:0 0 1.4rem;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--accent-ink); margin:0 0 1rem;
   }
   h1{
     font-family:var(--serif); font-weight:480; font-style:normal;
-    font-size:clamp(2.35rem,5.4vw,3.7rem); line-height:1.04;
+    font-size:clamp(2.1rem, 4.8vw, 3.4rem); line-height:1.05;
     letter-spacing:-.012em; margin:0; text-wrap:balance;
   }
   .byline{
-    font-family:var(--mono); font-size:.72rem; letter-spacing:.055em;
-    color:var(--accent-ink); margin:1.1rem 0 0; line-height:1.5;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.05em;
+    color:var(--accent-ink); margin:.9rem 0 0; line-height:1.4;
   }
   .keys{
-    font-family:var(--mono); font-size:.74rem; letter-spacing:.1em;
-    color:var(--muted); margin:1.35rem 0 0; text-transform:uppercase;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.08em;
+    color:var(--muted); margin:1rem 0 0; text-transform:uppercase;
   }
   .keys b{color:var(--accent-ink); font-weight:500}
   .epigraph{
-    margin:2.4rem 0 0; padding-left:1.15rem; border-left:2px solid var(--accent);
-    font-style:italic; font-weight:340; font-size:1.18rem; line-height:1.55;
-    color:var(--ink-soft); max-width:34rem;
+    margin:1.8rem 0 0; padding-left:1rem; border-left:2px solid var(--accent);
+    font-style:italic; font-weight:340; font-size:1.1rem; line-height:1.5;
+    color:var(--ink-soft); max-width:36rem;
   }
 
-  hr.major{border:0; margin:3.4rem 0; text-align:center; color:var(--accent)}
-  hr.major::before{content:"\2248"; font-family:var(--serif); font-size:1.6rem; opacity:.6}
+  hr.major{border:0; margin:2.4rem 0; text-align:center; color:var(--accent)}
+  hr.major::before{content:"\2248"; font-family:var(--serif); font-size:1.4rem; opacity:.6}
 
-  .sec{margin:3.6rem 0 1.1rem}
+  .sec{margin:2.5rem 0 .9rem}
   .sec-num{
-    font-family:var(--mono); font-size:.78rem; letter-spacing:.2em;
-    color:var(--accent); margin:0 0 .55rem; text-transform:uppercase;
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.15em;
+    color:var(--accent); margin:0 0 .4rem; text-transform:uppercase;
   }
   h2{
-    font-family:var(--serif); font-weight:500; font-size:clamp(1.5rem,2.7vw,1.92rem);
-    line-height:1.16; letter-spacing:-.006em; margin:0; text-wrap:pretty;
+    font-family:var(--serif); font-weight:500; font-size:clamp(1.4rem,2.5vw,1.7rem);
+    line-height:1.15; letter-spacing:-.006em; margin:0; text-wrap:pretty;
   }
 
-  p{margin:0 0 1.2rem; max-width:37rem}
+  p{margin:0 0 .95rem; width:100%}
   .lede::first-letter{
     font-family:var(--serif); font-weight:460; float:left;
-    font-size:3.5em; line-height:.82; padding:.04em .1em 0 0; color:var(--ink);
+    font-size:3.2em; line-height:.8; padding:.05em .1em 0 0; color:var(--ink);
   }
   strong{font-weight:560; color:var(--ink)}
   em{font-style:italic}
@@ -140,16 +139,16 @@
   a:hover{text-decoration-color:var(--accent)}
   :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
 
-  ul.list{list-style:none; padding-left:1.5em; margin:1.2rem 0 1.4rem; max-width:37rem}
-  ul.list li{position:relative; margin:.62em 0; padding-left:.1em}
+  ul.list{list-style:none; padding-left:1.4em; margin:.9rem 0 1rem; width:100%}
+  ul.list li{position:relative; margin:.4em 0; padding-left:.1em}
   ul.list li::before{
-    content:""; position:absolute; left:-1.5em; top:.6em;
-    width:.46em; height:.46em; border:1.5px solid var(--accent);
+    content:""; position:absolute; left:-1.4em; top:.55em;
+    width:.4em; height:.4em; border:1.5px solid var(--accent);
   }
 
   .eq{
-    background:var(--eq-bg); border-radius:10px; padding:1.05rem 1rem;
-    margin:1.55rem 0; overflow-x:auto; overflow-y:hidden;
+    background:var(--eq-bg); border-radius:8px; padding:.8rem 1rem;
+    margin:1.2rem 0; overflow-x:auto; overflow-y:hidden;
     transition:background .35s ease;
   }
   .eq .katex-display{margin:0}
@@ -158,30 +157,30 @@
   .katex-error{color:#a12626}
 
   .oproblem{
-    margin:1.9rem 0; padding:1.05rem 1.25rem; border-left:2px solid var(--accent);
-    background:var(--accent-soft); border-radius:0 9px 9px 0; transition:background .35s ease;
+    margin:1.4rem 0; padding:.9rem 1.1rem; border-left:2px solid var(--accent);
+    background:var(--accent-soft); border-radius:0 8px 8px 0; transition:background .35s ease;
   }
   .oproblem .tag{
-    font-family:var(--mono); font-size:.7rem; letter-spacing:.18em;
-    text-transform:uppercase; color:var(--accent-ink); margin:0 0 .5rem; font-weight:500;
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--accent-ink); margin:0 0 .4rem; font-weight:500;
   }
-  .oproblem .body{margin:0; font-size:1.06rem; font-weight:420; line-height:1.55; max-width:none}
+  .oproblem .body{margin:0; font-size:1.02rem; font-weight:420; line-height:1.5; max-width:none}
 
-  ol.problems{list-style:none; counter-reset:p; padding:0; margin:1.4rem 0 0}
+  ol.problems{list-style:none; counter-reset:p; padding:0; margin:1rem 0 0}
   ol.problems li{
-    counter-increment:p; position:relative; padding-left:2.7em;
-    margin:1.35rem 0; max-width:37rem;
+    counter-increment:p; position:relative; padding-left:2.2em;
+    margin:.85rem 0; width:100%;
   }
   ol.problems li::before{
-    content:counter(p,decimal-leading-zero); position:absolute; left:0; top:.12em;
-    font-family:var(--mono); font-size:.86em; font-weight:500;
+    content:counter(p,decimal-leading-zero); position:absolute; left:0; top:.1em;
+    font-family:var(--mono); font-size:.82em; font-weight:500;
     color:var(--accent); letter-spacing:.04em;
   }
 
-  figure.figure{margin:2.2rem 0; text-align:center}
+  figure.figure{margin:1.8rem 0; text-align:center}
   .diagram{
-    width:min(100%,21rem); height:auto; display:block;
-    margin:0 auto .9rem; overflow:visible;
+    width:min(100%,19rem); height:auto; display:block;
+    margin:0 auto .7rem; overflow:visible;
   }
   .diagram .edge{stroke:var(--accent); stroke-width:1.4; fill:none}
   .diagram .arrowhead{fill:var(--accent)}
@@ -196,18 +195,18 @@
   }
   .diagram .approx{fill:var(--accent); font-family:var(--serif); font-size:26px; opacity:.55}
   figcaption{
-    font-family:var(--mono); font-size:.74rem; line-height:1.65;
+    font-family:var(--mono); font-size:.7rem; line-height:1.55;
     letter-spacing:.01em; color:var(--muted); max-width:28rem; margin:0 auto;
   }
 
-  .coda{font-size:1.04rem}
+  .coda{font-size:1rem}
   .coda .sec-num{color:var(--accent)}
   .colophon{
-    margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--hair);
-    font-family:var(--mono); font-size:.72rem; letter-spacing:.06em;
-    color:var(--muted); line-height:1.8;
+    margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--hair);
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.05em;
+    color:var(--muted); line-height:1.6;
   }
-  .colophon p{margin-bottom:.6rem}
+  .colophon p{margin-bottom:.4rem}
   .signature{color:var(--accent-ink); font-weight:500}
 
   @media (prefers-reduced-motion: no-preference){
@@ -224,9 +223,9 @@
   }
 
   @media (max-width:560px){
-    .epigraph{font-size:1.08rem}
-    .lede::first-letter{font-size:3em}
-    .toggle{top:.7rem; right:.7rem}
+    .epigraph{font-size:1.02rem}
+    .lede::first-letter{font-size:2.8em}
+    .toggle{top:.6rem; right:.6rem; padding:.4em .7em}
   }
 </style>
 
@@ -252,7 +251,7 @@
     <h1>World Models for a Finite, Embedded Modeler</h1>
     <p class="byline">Yuexin Liao, Caltech CMS &amp; DP technology</p>
     <p class="keys"><b>compression</b> · <b>geometry</b> · <b>causality</b> · <b>closure</b></p>
-    <p class="epigraph">A world model is not a miniature of the world. It is a finite system of operations, chosen so that the operations that matter such as evolution, observation, transformation, memory, intervention, experiment,  still approximately close.</p>
+    <p class="epigraph">A world model is not a miniature of the world. It is a finite system of operations, chosen so that the operations that matter such as evolution, observation, transformation, memory, intervention, experiment, still approximately close.</p>
   </header>
 
   <section>
