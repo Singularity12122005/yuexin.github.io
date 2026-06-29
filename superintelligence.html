@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World Models for a Finite, Embedded Modeler</title>
+<meta name="description" content="A theoretical note: understanding as the closure of operations — evolution, observation, transformation, memory, intervention, experiment — on a finite quotient space.">
+<meta name="author" content="Yuexin Liao, Caltech CMS &amp; DP technology">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..600;1,6..72,300..560&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- KaTeX: CSS and scripts must use exactly the same version. -->
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.css"
+  integrity="sha384-vlBdW0r3AcZO/HboRPznQNowvexd3fY8qHOWkBi5q7KGgqJ+F48+DceybYmrVbmB"
+  crossorigin="anonymous">
+
+<style>
+  :root{
+    /* — Paper (light) — */
+    --bg:#f4f5f3;
+    --bg-2:#eceeea;
+    --ink:#1c1d1f;
+    --ink-soft:#3b3d3f;
+    --muted:#74777b;
+    --hair:#d9dcd8;
+    --accent:#0f5d62;
+    --accent-ink:#0b4448;
+    --accent-soft:rgba(15,93,98,.085);
+    --eq-bg:#eaf1f0;
+    --serif:"Newsreader", Georgia, "Times New Roman", serif;
+    --mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  :root[data-theme="dark"]{
+    /* — Chalkboard (dark) — */
+    --bg:#162019;
+    --bg-2:#1c2722;
+    --ink:#e9ece5;
+    --ink-soft:#cdd2c9;
+    --muted:#93a09a;
+    --hair:#2c3a33;
+    --accent:#8fd0c9;
+    --accent-ink:#abdcd5;
+    --accent-soft:rgba(143,208,201,.12);
+    --eq-bg:#1b2722;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#162019; --bg-2:#1c2722; --ink:#e9ece5; --ink-soft:#cdd2c9;
+      --muted:#93a09a; --hair:#2c3a33; --accent:#8fd0c9; --accent-ink:#abdcd5;
+      --accent-soft:rgba(143,208,201,.12); --eq-bg:#1b2722;
+    }
+  }
+
+  *{box-sizing:border-box}
+  html{font-size:clamp(16px,0.6vw + 14.5px,18px); -webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--serif); font-weight:380;
+    font-variant-numeric:oldstyle-nums; font-optical-sizing:auto;
+    line-height:1.66; letter-spacing:.005em;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    transition:background .35s ease, color .35s ease;
+  }
+  ::selection{background:var(--accent); color:var(--bg)}
+
+  .progress{
+    position:fixed; inset:0 0 auto 0; height:2px; z-index:50;
+    background:var(--accent); transform-origin:0 50%; transform:scaleX(0);
+    transition:transform .08s linear; opacity:.85;
+  }
+
+  .toggle{
+    position:fixed; top:1rem; right:1rem; z-index:60;
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.12em;
+    color:var(--muted); background:var(--bg-2); border:1px solid var(--hair);
+    border-radius:999px; padding:.5em .9em; cursor:pointer; line-height:1;
+    display:inline-flex; align-items:center; gap:.55em;
+    transition:color .2s, border-color .2s, background .35s;
+  }
+  .toggle:hover{color:var(--accent); border-color:var(--accent)}
+  .toggle .dot{
+    width:.62em; height:.62em; border-radius:50%;
+    border:1.4px solid currentColor; background:transparent;
+    box-shadow:inset -.28em -.05em 0 0 currentColor;
+  }
+
+  .wrap{max-width:39rem; margin:0 auto; padding:0 1.5rem 6rem}
+
+  .hero{padding:clamp(3.2rem,11vh,7.5rem) 0 1.4rem}
+  .eyebrow{
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.26em;
+    text-transform:uppercase; color:var(--accent-ink); margin:0 0 1.4rem;
+  }
+  h1{
+    font-family:var(--serif); font-weight:480; font-style:normal;
+    font-size:clamp(2.35rem,5.4vw,3.7rem); line-height:1.04;
+    letter-spacing:-.012em; margin:0; text-wrap:balance;
+  }
+  .byline{
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.055em;
+    color:var(--accent-ink); margin:1.1rem 0 0; line-height:1.5;
+  }
+  .keys{
+    font-family:var(--mono); font-size:.74rem; letter-spacing:.1em;
+    color:var(--muted); margin:1.35rem 0 0; text-transform:uppercase;
+  }
+  .keys b{color:var(--accent-ink); font-weight:500}
+  .epigraph{
+    margin:2.4rem 0 0; padding-left:1.15rem; border-left:2px solid var(--accent);
+    font-style:italic; font-weight:340; font-size:1.18rem; line-height:1.55;
+    color:var(--ink-soft); max-width:34rem;
+  }
+
+  hr.major{border:0; margin:3.4rem 0; text-align:center; color:var(--accent)}
+  hr.major::before{content:"\2248"; font-family:var(--serif); font-size:1.6rem; opacity:.6}
+
+  .sec{margin:3.6rem 0 1.1rem}
+  .sec-num{
+    font-family:var(--mono); font-size:.78rem; letter-spacing:.2em;
+    color:var(--accent); margin:0 0 .55rem; text-transform:uppercase;
+  }
+  h2{
+    font-family:var(--serif); font-weight:500; font-size:clamp(1.5rem,2.7vw,1.92rem);
+    line-height:1.16; letter-spacing:-.006em; margin:0; text-wrap:pretty;
+  }
+
+  p{margin:0 0 1.2rem; max-width:37rem}
+  .lede::first-letter{
+    font-family:var(--serif); font-weight:460; float:left;
+    font-size:3.5em; line-height:.82; padding:.04em .1em 0 0; color:var(--ink);
+  }
+  strong{font-weight:560; color:var(--ink)}
+  em{font-style:italic}
+  a{
+    color:var(--accent); text-decoration-thickness:1px; text-underline-offset:.18em;
+    text-decoration-color:color-mix(in srgb, var(--accent) 45%, transparent);
+  }
+  a:hover{text-decoration-color:var(--accent)}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+
+  ul.list{list-style:none; padding-left:1.5em; margin:1.2rem 0 1.4rem; max-width:37rem}
+  ul.list li{position:relative; margin:.62em 0; padding-left:.1em}
+  ul.list li::before{
+    content:""; position:absolute; left:-1.5em; top:.6em;
+    width:.46em; height:.46em; border:1.5px solid var(--accent);
+  }
+
+  .eq{
+    background:var(--eq-bg); border-radius:10px; padding:1.05rem 1rem;
+    margin:1.55rem 0; overflow-x:auto; overflow-y:hidden;
+    transition:background .35s ease;
+  }
+  .eq .katex-display{margin:0}
+  .katex{color:inherit}
+  .katex-display{overflow-x:auto; overflow-y:hidden; padding:.1rem 0}
+  .katex-error{color:#a12626}
+
+  .oproblem{
+    margin:1.9rem 0; padding:1.05rem 1.25rem; border-left:2px solid var(--accent);
+    background:var(--accent-soft); border-radius:0 9px 9px 0; transition:background .35s ease;
+  }
+  .oproblem .tag{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent-ink); margin:0 0 .5rem; font-weight:500;
+  }
+  .oproblem .body{margin:0; font-size:1.06rem; font-weight:420; line-height:1.55; max-width:none}
+
+  ol.problems{list-style:none; counter-reset:p; padding:0; margin:1.4rem 0 0}
+  ol.problems li{
+    counter-increment:p; position:relative; padding-left:2.7em;
+    margin:1.35rem 0; max-width:37rem;
+  }
+  ol.problems li::before{
+    content:counter(p,decimal-leading-zero); position:absolute; left:0; top:.12em;
+    font-family:var(--mono); font-size:.86em; font-weight:500;
+    color:var(--accent); letter-spacing:.04em;
+  }
+
+  figure.figure{margin:2.2rem 0; text-align:center}
+  .diagram{
+    width:min(100%,21rem); height:auto; display:block;
+    margin:0 auto .9rem; overflow:visible;
+  }
+  .diagram .edge{stroke:var(--accent); stroke-width:1.4; fill:none}
+  .diagram .arrowhead{fill:var(--accent)}
+  .diagram text{text-anchor:middle; dominant-baseline:middle}
+  .diagram .obj{
+    fill:var(--ink); font-family:var(--serif); font-style:italic;
+    font-weight:480; font-size:27px;
+  }
+  .diagram .op{
+    fill:var(--accent); font-family:var(--serif);
+    font-style:italic; font-size:21px;
+  }
+  .diagram .approx{fill:var(--accent); font-family:var(--serif); font-size:26px; opacity:.55}
+  figcaption{
+    font-family:var(--mono); font-size:.74rem; line-height:1.65;
+    letter-spacing:.01em; color:var(--muted); max-width:28rem; margin:0 auto;
+  }
+
+  .coda{font-size:1.04rem}
+  .coda .sec-num{color:var(--accent)}
+  .colophon{
+    margin-top:4rem; padding-top:1.4rem; border-top:1px solid var(--hair);
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.06em;
+    color:var(--muted); line-height:1.8;
+  }
+  .colophon p{margin-bottom:.6rem}
+  .signature{color:var(--accent-ink); font-weight:500}
+
+  @media (prefers-reduced-motion: no-preference){
+    .diagram .edge{
+      stroke-dasharray:280; stroke-dashoffset:280;
+      animation:draw 1.05s cubic-bezier(.65,0,.35,1) forwards;
+    }
+    .diagram .e2{animation-delay:.12s}
+    .diagram .e3{animation-delay:.24s}
+    .diagram .e4{animation-delay:.36s}
+    .diagram .lbl{opacity:0; animation:appear .5s ease .55s forwards}
+    @keyframes draw{to{stroke-dashoffset:0}}
+    @keyframes appear{to{opacity:1}}
+  }
+
+  @media (max-width:560px){
+    .epigraph{font-size:1.08rem}
+    .lede::first-letter{font-size:3em}
+    .toggle{top:.7rem; right:.7rem}
+  }
+</style>
+
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/katex.min.js"
+  integrity="sha384-AtrdNsnxl/75rvBneBVH7DtOvCxSVahR2zWqle1coBKd8DEmLoviqNeJSx64gNAs"
+  crossorigin="anonymous"></script>
+<script defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.17.0/dist/contrib/auto-render.min.js"
+  integrity="sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz"
+  crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<button class="toggle" id="toggle" type="button" aria-label="Switch between paper and chalkboard theme">
+  <span class="dot" aria-hidden="true"></span><span id="toggle-label">Paper</span>
+</button>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Theoretical note</p>
+    <h1>World Models for a Finite, Embedded Modeler</h1>
+    <p class="byline">Yuexin Liao, Caltech CMS &amp; DP technology</p>
+    <p class="keys"><b>compression</b> · <b>geometry</b> · <b>causality</b> · <b>closure</b></p>
+    <p class="epigraph">A world model is not a miniature of the world. It is a finite system of operations, chosen so that the operations that matter such as evolution, observation, transformation, memory, intervention, experiment,  still approximately close.</p>
+  </header>
+
+  <section>
+    <div class="sec"><h2>The problem</h2></div>
+
+    <p class="lede">As large language models accelerate science alongside us, the interesting question is not how to make an AI learn the world. It is this: how can a finite modeler — one that occupies a particular position, is embedded inside the world, and must act — build a predictable, controllable proxy for a world that is too large to represent in full, yet is governed by axiomatic laws across many domains?</p>
+
+    <p>What matters most here is not that the world is law-governed; it is that the modeler is finite. The world may have complete laws, but a finite agent cannot hold those laws directly. The world may have a true state, but a finite agent cannot read that state off directly. The world may have causal mechanisms, but a finite agent cannot separate mechanism from correlation by observation alone.</p>
+
+    <p>So the essence of a world model is not to copy the world. It is to find a proxy space small enough that the key operations close.</p>
+
+    <p>Let the true world state be \(x \in X\). The modeler can hold only a compressed state</p>
+    <div class="eq">\[ z = \pi(x), \qquad \pi: X \to Z, \]</div>
+    <p>where \(\pi\) is a representation — a compression, a coarse-graining. The real world admits several kinds of operation: time evolution \(\Phi_t\), change of reference frame \(g\), and action/intervention \(\mathrm{do}(a)\). A good world model demands that each of these operations have a counterpart in the compressed space \(Z\):</p>
+    <div class="eq">\[ \pi(\mathcal{O}x) \approx \hat{\mathcal{O}}\bigl(\pi(x)\bigr). \]</div>
+
+    <figure class="figure">
+      <svg class="diagram" viewBox="0 0 440 300" role="img" aria-labelledby="dt dd">
+        <title id="dt">The closure (commuting) condition</title>
+        <desc id="dd">A square. The top-left object X maps rightward by the world operation O to X, and downward by the compression pi to Z. The bottom edge is the model operation O-hat. A good world model makes the path operate-then-compress approximately agree with compress-then-operate.</desc>
+        <defs>
+          <marker id="ah" markerWidth="9" markerHeight="9" refX="7.2" refY="4.5" orient="auto-start-reverse">
+            <path d="M0,0 L8,4.5 L0,9 Z" class="arrowhead"/>
+          </marker>
+        </defs>
+        <line class="edge e1" x1="104" y1="74" x2="334" y2="74" marker-end="url(#ah)"/>
+        <line class="edge e2" x1="74" y1="100" x2="74" y2="204" marker-end="url(#ah)"/>
+        <line class="edge e3" x1="366" y1="100" x2="366" y2="204" marker-end="url(#ah)"/>
+        <line class="edge e4" x1="104" y1="232" x2="334" y2="232" marker-end="url(#ah)"/>
+        <text class="obj lbl" x="74" y="74">X</text>
+        <text class="obj lbl" x="366" y="74">X</text>
+        <text class="obj lbl" x="74" y="232">Z</text>
+        <text class="obj lbl" x="366" y="232">Z</text>
+        <text class="op lbl" x="220" y="56">O</text>
+        <text class="op lbl" x="220" y="252">O&#770;</text>
+        <text class="op lbl" x="56" y="158">&#960;</text>
+        <text class="op lbl" x="384" y="158">&#960;</text>
+        <text class="approx lbl" x="220" y="160">&#8776;</text>
+      </svg>
+      <figcaption>Compress, then operate &#8776; operate, then compress. The whole essay studies when this square closes — and what the gap &#8776; becomes when it doesn&rsquo;t.</figcaption>
+    </figure>
+
+    <p>That is: operating in the real world and then compressing should agree, to good approximation, with compressing first and then operating in the model.</p>
+
+    <p>This is the heart of the framework. <strong>Understanding is not knowing every detail of the world; it is finding a quotient space small enough that the world&rsquo;s important operations still approximately commute within it.</strong></p>
+
+    <p>Five themes unfold from this single question.</p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">I</p><h2>Finite storage forces compression; the price of compression is memory</h2></div>
+
+    <p>The modeler cannot store the whole world, so it must compress. In physics this is the passage from microscopic degrees of freedom to macroscopic variables: instead of tracking every molecule&rsquo;s position and momentum, you track temperature, pressure, entropy. In machine learning it is learning a latent state out of pixels, sensor streams, particle configurations.</p>
+
+    <p>But compression is no free lunch. It merges many true states \(x\) into a single model state \(z\). The microscopic differences that get merged form a <strong>fiber</strong>, \(\pi^{-1}(z)\).</p>
+
+    <ul class="list">
+      <li>If the hidden variables inside a fiber mix quickly, their influence on the future thermalizes fast, and the agent can treat them as noise.</li>
+      <li>If they mix slowly, they carry information from the past into the future, and the model must then carry memory.</li>
+      <li>If they do not mix at all — or drift slowly with the environment, the regime, the intervention — then the compression is illegitimate, and the model breaks out of distribution.</li>
+    </ul>
+
+    <p>This is the philosophical core of the Mori&ndash;Zwanzig projection idea: the degrees of freedom you project out do not vanish; they return as noise, as memory, or as systematic failure.</p>
+
+    <p>More precisely, noise and memory are not two parallel phenomena but two limits of the same compression residual. When the hidden variables mix infinitely fast, the memory kernel contracts to an instantaneous spike and appears as white noise; when they mix at a finite rate, the kernel acquires width and appears as history dependence. The question &ldquo;how much context do I need&rdquo; reduces to: <em>how long do the compressed-away degrees of freedom take to forget themselves?</em></p>
+
+    <p>So the deepest goal of representation learning is not to retain the most information, nor to reconstruct most faithfully. It is to <strong>choose a compression \(\pi\) under which the discarded degrees of freedom mix as fast as possible inside the fibers.</strong></p>
+
+    <p>This unifies representation and memory. A good latent state is not a pretty embedding; it is a coarse-graining that turns the residual unknowns into controllable noise as fast as possible. Conversely, if a latent needs a very long context to predict from, that is not a sign that the memory module is too weak — it is a sign that the state compression has not truly closed.</p>
+
+    <aside class="oproblem">
+      <p class="tag">Open problem 1</p>
+      <p class="body">Can we measure, from a learned encoder, the mixing time of the fiber dynamics it has compressed away — and from that predict how much memory the world model needs?</p>
+    </aside>
+
+    <p>This would join representation learning to sequence modeling. Today we usually fix the latent first and then tune the context length; a deeper theory should tell us the converse: the more aggressive the compression, the longer the memory kernel; the smaller the fiber spectral gap, the more the model needs long context, state-space models, external memory, or non-Markovian dynamics.</p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">II</p><h2>Occupying a position forces reference frames; the price of reference frames is geometry</h2></div>
+
+    <p>The modeler not only has finite storage; it also occupies a position. It does not see the world top-down, from a god&rsquo;s-eye view; it gathers data through local observation, from some body, some sensor, some coordinate frame. What it sees is an <em>egocentric</em> observation: the world as presented relative to &ldquo;me.&rdquo;</p>
+
+    <p>But the laws of the world should not depend on where &ldquo;I&rdquo; stand. The agent turns, the image changes; the world itself has not changed. So the agent must distinguish two kinds of change: the world really changed, versus only my reference frame changed.</p>
+
+    <p>This is the root of spatial intelligence. Spatial intelligence is not the ability to draw a map; it is the ability to <strong>recover frame-independent world structure from frame-dependent observation.</strong></p>
+
+    <p>Formally, if \(g\) is a change of reference frame — a rotation, a translation, a change of viewpoint — then a good representation should satisfy</p>
+    <div class="eq">\[ \pi(gx) \approx \rho(g)\,\pi(x), \]</div>
+    <p>where \(\rho(g)\) is the corresponding transformation in model space. This is <strong>equivariance</strong>, and it is more precise than invariance: after a molecule rotates, its energy may be unchanged, but its force vector should rotate with it; after the agent changes viewpoint, the world model should not collapse but should transform by the correct rule.</p>
+
+    <p>This threads spatial intelligence, cognitive maps, SLAM, 3D reconstruction, SE(3)-equivariant networks, and structural biology (the protein-folding problem in particular) onto a single line. They are all solving the same problem: how to keep the model from mistaking <em>a change in the way the world is described</em> for <em>a change in the world itself</em>.</p>
+
+    <p>Structural biology attaches here naturally because its objects carry geometric structure intrinsically. Molecular rotation, crystal translation, space-group symmetry are not external add-ons; they are structure that the physical axioms must respect. A model that disrespects symmetry has, in effect, mislearned a choice of coordinates as a physical fact.</p>
+
+    <p>Noether&rsquo;s theorem supplies a deeper connection: every continuous symmetry corresponds to a conserved quantity. Time translation gives conservation of energy, spatial translation gives conservation of momentum, rotation gives conservation of angular momentum. So the conservation laws of physics are not extra knowledge — they are a <em>unit test</em> of whether a world model respects the structure of reference frames.</p>
+
+    <p>Here memory and space can be merged further still. The <strong>successor representation</strong> stores</p>
+    <div class="eq">\[ M = (I - \gamma P)^{-1} = \sum_{t \ge 0} \gamma^t P^t. \]</div>
+    <p>It is not a static map but a predictive one: <em>starting here, where will I visit in the future?</em> In other words, a map is essentially a compression of future reachability; memory is essentially the feedback onto the future of the dynamics that were compressed away from the past. Both are the Green&rsquo;s function of a projected dynamics. One looks spatial, the other temporal, but both answer the same question: <em>when the current finite state is incomplete, how do you fold the invisible dynamics back into the present model?</em></p>
+
+    <aside class="oproblem">
+      <p class="tag">Open problem 2</p>
+      <p class="body">Can we build a unified theory of predictive maps that sees the successor representation of spatial navigation, the memory kernel of physical coarse-graining, and the long-context mechanism of sequence models as one and the same operator structure?</p>
+    </aside>
+
+    <p>If so, the design of memory architectures stops being empirical engineering and becomes: <em>given a transition operator, choose which resolvent/kernel to use to compress future reachability.</em></p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">III</p><h2>Being embedded and having to act forces causality; the price of causality is intervention</h2></div>
+
+    <p>A pure observer need only predict \(p(\text{future} \mid \text{past})\). But an agent must act. To act is not to observe that something happened; it is to reach in and change the world. The agent must answer</p>
+    <div class="eq">\[ p(\text{future} \mid \mathrm{do}(a),\ \text{state}). \]</div>
+    <p>This is causality.</p>
+
+    <p>So causality is not &ldquo;a more advanced form of correlation.&rdquo; It is the structure that gets forced out of a world model when it moves from prediction to control. A model that only predicts a natural data stream does not necessarily know what will happen after an action, because passive data tell you only how the world <em>usually</em> changes — not what happens if you reach in and force a variable.</p>
+
+    <p>This is also why predictive compression and control compression are not the same. A variable may be nearly constant under natural observation, contributing little to predicting the future, so an ordinary model throws it away; yet once you intervene on it, it may decide the fate of the whole system. So <strong>a representation that is optimal for prediction may discard exactly the variable that is most critical for control.</strong></p>
+
+    <p>This is the central difficulty of causal representation learning. A true world-model state \(z\) must satisfy not only <em>passive predictive sufficiency</em>,</p>
+    <div class="eq">\[ p(y_{t+1} \mid z_t), \]</div>
+    <p>but also <em>interventional sufficiency</em>,</p>
+    <div class="eq">\[ p(y_{t+1} \mid \mathrm{do}(a),\ z_t). \]</div>
+    <p>If the latter fails, the model is not a controllable world model but merely a passive predictor. So understanding can be redefined: <strong>understanding = a compressed representation that stays closed under a broad class of interventions.</strong> This is stronger than predictive accuracy itself. A model can predict superbly on the training distribution yet be completely wrong under intervention; that is not understanding but correlational compression.</p>
+
+    <aside class="oproblem">
+      <p class="tag">Open problem 3</p>
+      <p class="body">Is there an interventional information bottleneck — an interventional rate&ndash;distortion theory? The ordinary information bottleneck minimizes a prediction or reconstruction loss. But the distortion function for a control agent should be the intervention error:</p>
+    </aside>
+    <div class="eq">\[ D_{\mathrm{do}}(X, Z) = \mathbb{E}_a\Bigl[d\bigl(P(Y \mid \mathrm{do}(a), X),\ P(Y \mid \mathrm{do}(a), Z)\bigr)\Bigr]. \]</div>
+
+    <p>This yields an entirely different theory of optimal representation. It does not ask which variables best predict the natural future; it asks which variables best predict the future <em>after an action</em>.</p>
+
+    <p>This question fuses representation learning, causal discovery, control, and active learning into a single variational principle. It may be the most fundamental mathematical form of the question &ldquo;what should a finite agent keep?&rdquo;</p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">IV</p><h2>Science is not another theme; it is the intervention loop institutionalized</h2></div>
+
+    <p>From here, AI for Science follows naturally. It is the institutionalized version of the agent problem above.</p>
+
+    <p>What is a scientific experiment? A controlled intervention. What is a scientific theory? A candidate compression — a claim that certain variables suffice to describe a phenomenon. What is a scientific discovery? Finding that the old compression does not close, and then searching for a better one. What is an autonomous laboratory? An agent that actively chooses interventions so as to distinguish, as fast as possible, which models close and which do not.</p>
+
+    <p>So the deep goal of AI for Science is not to &ldquo;fit a surrogate model with AI.&rdquo; It is to <strong>automatically find the macroscopic variables that stay closed under intervention, transformation, and extrapolation.</strong></p>
+
+    <p>This is deeper than Bayesian optimization. Bayesian optimization typically searches for the best experimental point within a <em>fixed</em> variable space; but real scientific discovery is often the discovery that the variable space itself was wrong. We thought temperature and pressure were enough, then found we also needed an order parameter; we thought mean field was enough, then found the fluctuations could not be ignored; we thought the correlated variables were enough, then found that a hidden mechanism was the real control knob.</p>
+
+    <p>So the goal of an experiment is not merely information gain but <strong>closure discrimination</strong>: which experiment best exposes the non-closure of the current world model? A good experiment does not add data at random; it strikes the theory&rsquo;s most fragile point and lets the wrong compression break itself.</p>
+
+    <aside class="oproblem">
+      <p class="tag">Open problem 4</p>
+      <p class="body">Can we formalize autonomous scientific discovery as the active search for a <em>minimal closed quotient space</em>?</p>
+    </aside>
+
+    <p>That is, the AI scientist does not merely choose experimental points; it simultaneously searches for which variables to keep, which to compress away, which compressions stay closed under intervention, and which experiments best prove the current compression insufficient. This would raise the self-driving lab from an automatic optimizer to a <em>causal coarse-graining machine</em>.</p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">V</p><h2>The framework&rsquo;s deepest tension: modelability and interestingness pull against each other</h2></div>
+
+    <p>The narrative so far looks elegant and self-consistent: a finite agent compresses the world, compensates for compression with memory, removes reference frames with geometry, supports action with causality, and improves the model through scientific experiment. The trouble is that the framework cracks open on its own.</p>
+
+    <p>A good compression demands that the discarded degrees of freedom mix quickly; it demands a spectral gap, scale separation, stable fiber dynamics. In other words, the world must be simple enough <em>at some scale</em> for the model to close. But the most interesting phenomena tend to occur precisely where this closure is about to fail: phase transitions, criticality, the onset of turbulence, emergence, multiscale coupling, living systems, intelligent systems. What they have in common is that there is no clean scale separation, hidden variables do not mix fast, small perturbations amplify across scales, and the closure of the macroscopic variables becomes fragile.</p>
+
+    <p>So a fundamental tension appears: <strong>the worlds easiest to model tend to be trivial; the worlds most worth modeling tend to resist finite compression.</strong></p>
+
+    <p>This is the boundary condition of world-model theory. Far from criticality, the model closes but the phenomena are dull; deep in criticality, the phenomena are rich but any fixed compression may fail. True intelligence is not finding one fixed good model forever; it is judging dynamically, on this boundary:</p>
+
+    <ul class="list">
+      <li>when the current state is no longer enough and the representation must be extended;</li>
+      <li>when it is not the state but explicit memory that is needed;</li>
+      <li>when it is not memory but active intervention that is needed;</li>
+      <li>when trajectory prediction itself is no longer reasonable and one must turn to distributions, invariant measures, attractor structure;</li>
+      <li>when the model&rsquo;s failure is not a shortage of data but the illegitimacy of the compression assumption itself.</li>
+    </ul>
+
+    <aside class="oproblem">
+      <p class="tag">Open problem 5</p>
+      <p class="body">Can we define a <em>closure early-warning signal</em> for world models — one that detects, before the rollout collapses, that the current compression is about to fail?</p>
+    </aside>
+
+    <p>Such a signal should not be ordinary uncertainty; it should come from operational closure itself, for example</p>
+    <div class="eq">\[ \Delta_{\mathcal{O}}(x) = \pi(\mathcal{O}x) - \hat{\mathcal{O}}\bigl(\pi(x)\bigr). \]</div>
+    <p>If the commutator error of certain operations grows fast, the model space no longer supports those world operations. Likewise one can monitor effective memory length, fiber mixing time, latent spectral gap, susceptibility, semigroup consistency. The reliability of a world model should not be judged only by whether a sample looks like the training set, but by: <em>in this region, is my compression still closed?</em></p>
+
+    <p>This gives out-of-distribution detection a more physical, more structured foundation.</p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">VI</p><h2>The three invariances are not fully isomorphic; the crack itself is the opportunity</h2></div>
+
+    <p>I said above that compression must respect dynamical closure, that space must respect changes of reference frame, and that causality must respect interventional structure. They all seem homotopic to a single notion of invariance. But examined strictly, their mathematical structures differ.</p>
+
+    <p>Changes of reference frame are usually <em>groups</em>: a rotation can be rotated back, a translation translated back. Scale transformations, in many theories, also approximately form a group or a semigroup. But intervention is not a group. When you perform \(\mathrm{do}(X = x)\), you cut the incoming edges of \(X\); this operation has no natural inverse. Intervention is an <em>irreversible</em> modification of mechanism.</p>
+
+    <p>So there is a deep gap between symmetry and intervention. Symmetry says: the same world should be consistent under different descriptions. Intervention says: this is what happens when I actually change the world&rsquo;s mechanism. The former is a reversible change of description; the latter is an irreversible change of structure. Both are called invariance, but they are not the same invariance.</p>
+
+    <p>This yields a very sharp open problem: <strong>at most how much irreversible interventional information can a reversible symmetry-group constraint replace?</strong></p>
+
+    <p>This is the precise version of &ldquo;can equivariance help causal identification?&rdquo; Not the vague claim that symmetry helps causality, but the question: to what extent can \(G\)-equivariance shrink the non-identifiability of a causal representation? Which causal variables can be identified from symmetry / orbit structure alone, and which must be paid for with real experiment?</p>
+
+    <p>The deeper junction is spontaneous symmetry breaking. A system&rsquo;s microscopic laws may be symmetric, yet its macroscopic state selects an asymmetric direction — a direction described by an order parameter. The order parameter is at once a product of geometric/symmetry structure and, often, the most natural coordinate for macroscopic control. Magnetization, phase, density difference, degree of synchronization, collective modes — all of them look like macroscopic causal variables one can intervene on.</p>
+
+    <p>So the stronger question is: <strong>are macroscopic causal variables often the order parameters of some symmetry breaking?</strong> If so, causal representation learning is no longer merely the extraction of latents from data; it is the derivation, from a system&rsquo;s symmetry and its breaking, of the very coordinates on which one can intervene. That would fuse geometry, physics, and causality into a single theory of identification.</p>
+  </section>
+
+  <section>
+    <div class="sec"><p class="sec-num">VII</p><h2>The unification: a world model is a finite operating system, not a miniature world</h2></div>
+
+    <p>The whole logic now compresses into one story.</p>
+
+    <p>The world is too large and the agent too small, so it must compress. If the compression does not close, the discarded degrees of freedom return as noise, memory, failure. The agent occupies a position, so it must separate a change in the world from a change in reference frame; this forces geometry, equivariance, spatial intelligence. The agent must act, so it must predict the consequences of intervention; this forces causality. Science is the agent actively designing interventions to discover which compression truly closes. And all of this effort takes place on a dangerous boundary: the more interesting the world, the closer it sits to the failure of compression; the more compressible the world, the more likely it lacks emergent complexity.</p>
+
+    <p>So the essence of a world model is <em>not</em>: I replicate a world in my head.</p>
+
+    <p>It is: <strong>I construct a finite operating system in which the operations — prediction, change of coordinates, memory update, intervention, experimental learning — close as far as possible.</strong> That is the final form of the unified framework.</p>
+  </section>
+
+  <hr class="major">
+
+  <section>
+    <div class="sec"><p class="sec-num">Eight questions</p><h2>The core open problems</h2></div>
+
+    <ol class="problems">
+      <li><strong>Representation&ndash;memory coupling.</strong> Can we predict the required memory kernel / context length from an encoder&rsquo;s fiber dynamics or latent spectral gap? This would unify representation learning and long-context modeling.</li>
+      <li><strong>A closure metric for world models.</strong> Can the commutator error \(\Delta_{\mathcal{O}}(x) = \pi(\mathcal{O}x) - \hat{\mathcal{O}}(\pi(x))\) systematically evaluate whether a model understands dynamics, symmetry, conservation laws, and intervention? This could replace pure prediction loss as a stronger benchmark.</li>
+      <li><strong>An interventional information bottleneck.</strong> Can we build a rate&ndash;distortion theory centered on \(P(Y \mid \mathrm{do}(a), Z)\)? This would answer what a finite agent should keep <em>for the sake of control</em>.</li>
+      <li><strong>Symmetry-assisted causal identification.</strong> How much irreversible interventional data can the equivariance constraint of a reversible symmetry group \(G\) replace? Which causal variables can be identified from symmetry / orbit structure alone, and which require real experiment?</li>
+      <li><strong>Order parameters as causal coordinates.</strong> Do macroscopic causal variables often correspond to the order parameters of symmetry breaking? If so, the theory of phase transitions in physics becomes a theory of variable discovery for causal representation learning.</li>
+      <li><strong>Criticality and world-model failure.</strong> Does the collapse of a world model have the structure of a phase transition? Can we give early warning before collapse via memory length, susceptibility, latent spectral gap, rollout semigroup inconsistency?</li>
+      <li><strong>The right loss function for chaotic systems.</strong> For systems with a positive Lyapunov exponent, trajectory prediction is unreachable beyond the Lyapunov time. Can we train a model to switch automatically — trajectory loss in the short term, and invariant-measure / attractor-geometry / correlation-function matching in the long term?</li>
+      <li><strong>AI for Science as the active search for a closed quotient space.</strong> Autonomous experimentation should maximize not information gain but <em>closure discrimination</em>: which experiment best proves the current choice of variables insufficient? This would push AI for Science from automatic optimization toward automatic concept discovery.</li>
+    </ol>
+  </section>
+
+  <hr class="major">
+
+  <section class="coda">
+    <div class="sec"><h2>Coda</h2></div>
+    <p>Different problems, one thesis. A finite modeler — one that occupies a position, is embedded in the world, and must act — is not replicating the world but searching for a finite quotient space in which the operations that matter to it (evolution, observation, transformation, memory, intervention, experiment) still approximately close. Representation exists to close the dynamics. Memory is the temporal echo of failed compression. Geometry is the quotient structure of changes in reference frame. Causality is the closure condition of interventional operations. Science is the institutionalized process of actively finding and correcting these closure conditions. And true intelligence happens at the boundary where compressibility is about to fail: there the world still has structure to learn, yet is already complex enough to force the agent to invent new variables, new memory, new experiments — and new understanding.</p>
+  </section>
+
+  <footer class="colophon">
+    <p class="signature">Yuexin Liao, Caltech CMS &amp; DP technology</p>
+    <p>Technical note. Typeset in Newsreader &amp; IBM Plex Mono; mathematics rendered with KaTeX. Toggle the theme between paper and chalkboard, upper right.</p>
+  </footer>
+</main>
+
+<script>
+  (function () {
+    "use strict";
+
+    var root = document.documentElement;
+    var label = document.getElementById("toggle-label");
+    var toggle = document.getElementById("toggle");
+    var bar = document.getElementById("progress");
+
+    function currentTheme() {
+      var explicitTheme = root.getAttribute("data-theme");
+      if (explicitTheme) return explicitTheme;
+      return window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    function paintThemeLabel() {
+      label.textContent = currentTheme() === "dark" ? "Board" : "Paper";
+    }
+
+    function updateProgress() {
+      var height = document.documentElement.scrollHeight - window.innerHeight;
+      var progress = height > 0 ? Math.min(1, window.scrollY / height) : 0;
+      bar.style.transform = "scaleX(" + progress + ")";
+    }
+
+    function renderMath() {
+      if (typeof window.renderMathInElement !== "function") {
+        console.error("KaTeX auto-render did not load.");
+        return;
+      }
+
+      window.renderMathInElement(document.body, {
+        delimiters: [
+          {left: "$$", right: "$$", display: true},
+          {left: "\\[", right: "\\]", display: true},
+          {left: "\\(", right: "\\)", display: false},
+          {left: "$", right: "$", display: false}
+        ],
+        throwOnError: false,
+        strict: "warn",
+        trust: false
+      });
+    }
+
+    paintThemeLabel();
+    toggle.addEventListener("click", function () {
+      root.setAttribute("data-theme", currentTheme() === "dark" ? "light" : "dark");
+      paintThemeLabel();
+    });
+
+    if (window.matchMedia) {
+      try {
+        window.matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", paintThemeLabel);
+      } catch (error) {
+        /* Older Safari uses a legacy MediaQueryList API; the initial label is still correct. */
+      }
+    }
+
+    window.addEventListener("scroll", updateProgress, {passive:true});
+    window.addEventListener("resize", updateProgress);
+    updateProgress();
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", renderMath, {once:true});
+    } else {
+      renderMath();
+    }
+  }());
+</script>
+</body>
+</html>
